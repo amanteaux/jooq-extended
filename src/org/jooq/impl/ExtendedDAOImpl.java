@@ -1,6 +1,7 @@
 package org.jooq.impl;
 
 import org.jooq.Configuration;
+import org.jooq.RecordMapper;
 import org.jooq.Table;
 import org.jooq.UpdatableRecord;
 
@@ -12,6 +13,11 @@ public abstract class ExtendedDAOImpl<R extends UpdatableRecord<R>, P, T> extend
 
 	protected ExtendedDAOImpl(final Table<R> table, final Class<P> type, final Configuration configuration) {
 		super(table, type, configuration);
+	}
+
+	// TODO to delete as soon as jOOQ >= 3.2 is used
+	public RecordMapper<R, P> mapper() {
+		return Utils.configuration(configuration()).recordMapperProvider().provide(getTable().recordType(), getType());
 	}
 
 	protected abstract void setId(P object, java.lang.Long id);
