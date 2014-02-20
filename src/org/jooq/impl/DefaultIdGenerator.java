@@ -1,6 +1,8 @@
-package org.jooq;
+package org.jooq.impl;
 
 import java.util.Random;
+
+import org.jooq.IdGenerator;
 
 /**
  * Generate unique IDs

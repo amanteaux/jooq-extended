@@ -42,8 +42,10 @@ public abstract class ExtendedDAOImpl<R extends UpdatableRecord<R>, P, T> implem
     // ------------------------------------------------------------------------
 
 	public final void insert(Collection<P> objects) {
-		for(P object : objects) {
-			setId(object, configurationExtended.idGenerator().generate(Long.class));
+		if(configurationExtended().settingsExtended().isIdGenerated()) {
+			for(P object : objects) {
+				setId(object, configurationExtended.idGenerator().generate(Long.class));
+			}
 		}
 		delegate.insert(objects);
 	}
