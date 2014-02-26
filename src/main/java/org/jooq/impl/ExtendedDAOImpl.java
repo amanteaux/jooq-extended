@@ -3,7 +3,6 @@ package org.jooq.impl;
 import java.util.Collection;
 import java.util.List;
 
-import org.jooq.Configuration;
 import org.jooq.ConfigurationExtended;
 import org.jooq.DAOExtended;
 import org.jooq.Field;
@@ -14,7 +13,7 @@ import org.jooq.UpdatableRecord;
 public abstract class ExtendedDAOImpl<R extends UpdatableRecord<R>, P, T> implements DAOExtended<R, P, T> {
 	
 	private final DAOImpl<R, P, T> delegate;
-	private final ConfigurationExtended configurationExtended;
+	private ConfigurationExtended configurationExtended;
 
 	public ExtendedDAOImpl(final Table<R> table, final Class<P> type) {
 		this(table, type, null);
@@ -33,8 +32,13 @@ public abstract class ExtendedDAOImpl<R extends UpdatableRecord<R>, P, T> implem
 	}
 	
 	@Override
-	public ConfigurationExtended configurationExtended() {
+	public ConfigurationExtended configuration() {
 		return configurationExtended;
+	}
+	
+	public final void setConfiguration(ConfigurationExtended configuration) {
+		this.configurationExtended = configuration;
+		delegate.setConfiguration(configuration);
 	}
 	
     // ------------------------------------------------------------------------
@@ -42,7 +46,7 @@ public abstract class ExtendedDAOImpl<R extends UpdatableRecord<R>, P, T> implem
     // ------------------------------------------------------------------------
 
 	public final void insert(Collection<P> objects) {
-		if(configurationExtended().settingsExtended().isIdGenerated()) {
+		if(configuration().settingsExtended().isIdGenerated()) {
 			for(P object : objects) {
 				setId(object, configurationExtended.idGenerator().generate(Long.class));
 			}
@@ -54,14 +58,6 @@ public abstract class ExtendedDAOImpl<R extends UpdatableRecord<R>, P, T> implem
     // XXX: Delegate calls
     // ------------------------------------------------------------------------
 	
-	public final void setConfiguration(Configuration configuration) {
-		delegate.setConfiguration(configuration);
-	}
-
-	public final Configuration configuration() {
-		return delegate.configuration();
-	}
-
 	public RecordMapper<R, P> mapper() {
 		return delegate.mapper();
 	}
