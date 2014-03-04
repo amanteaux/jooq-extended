@@ -1,5 +1,8 @@
 package org.jooq.impl;
 
+import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -44,6 +47,14 @@ public abstract class ExtendedDAOImpl<R extends UpdatableRecord<R>, P, T> implem
     // ------------------------------------------------------------------------
     // XXX: DAOImpl override
     // ------------------------------------------------------------------------
+	
+	public final void insert(P object) {
+		insert(singletonList(object));
+	}
+
+	public final void insert(P... objects) {
+		insert(asList(objects));
+	}
 
 	public final void insert(Collection<P> objects) {
 		if(configuration().settingsExtended().isIdGenerated()) {
@@ -60,14 +71,6 @@ public abstract class ExtendedDAOImpl<R extends UpdatableRecord<R>, P, T> implem
 	
 	public RecordMapper<R, P> mapper() {
 		return delegate.mapper();
-	}
-
-	public final void insert(P object) {
-		delegate.insert(object);
-	}
-
-	public final void insert(P... objects) {
-		delegate.insert(objects);
 	}
 
 	public final void update(P object) {
