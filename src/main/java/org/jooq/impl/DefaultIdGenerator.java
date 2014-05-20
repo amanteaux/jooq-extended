@@ -27,13 +27,12 @@ public class DefaultIdGenerator implements IdGenerator {
 
 	// generators
 	
-	public static Long generateLong() {
+	private static Long generateLong() {
 		return RANDOM.nextLong();
 	}
 	
-	public static String generateString() {
+	private static String generateString() {
 		return String.valueOf(RANDOM.nextLong());
 	}
-
 
 }
