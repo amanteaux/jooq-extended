@@ -105,4 +105,10 @@
 			<url>https://raw.github.com/amanteaux/${project.artifactId}/mvn-repo</url>
 		</repository>
 	</distributionManagement>
+
+	<scm>
+		<developerConnection>https://github.com/amanteaux/jooq-extended.git</developerConnection>
+		<url>https://github.com/amanteaux/jooq-extended.git</url>
+		<connection>git://github.com/amanteaux/jooq-extended.git</connection>
+	</scm>
 </project>
