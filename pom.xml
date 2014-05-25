@@ -107,8 +107,6 @@
 	</distributionManagement>
 
 	<scm>
-		<developerConnection>https://github.com/amanteaux/jooq-extended.git</developerConnection>
-		<url>https://github.com/amanteaux/jooq-extended.git</url>
-		<connection>git://github.com/amanteaux/jooq-extended.git</connection>
+		<connection>scm:git:git://github.com/amanteaux/jooq-extended.git</connection>
 	</scm>
 </project>
